@@ -203,11 +203,12 @@
         $('#tree1').treed();
 
         function setChartId(id, name, type) {
-            if (type == 3) {
-                document.getElementById('id_KnowledgeProcess').value = id;
+            if (type == 2) {
+                // document.getElementById('id_KnowledgeProcess').value = id;
                 document.getElementById('KnowledgeProcessText').value = name;
+                chartTreeinput(id = id)
             } else {
-                alert('لطفا یک فرآیند انتخاب کنید');
+                alert('لطفا یک حوزه دانشی انتخاب کنید');
             }
             console.log(type)
         }
@@ -467,15 +468,25 @@
                                         <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right">
                                             <label for="KnowledgeProcessText"
                                                 class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">حوزه
-                                                دانش(فرآیند دانش)</label>
+                                                دانش</label>
                                             <ul id="tree1">
                                                 {{ html_chart|safe }}
                                             </ul>
                                             <input type="text" id="KnowledgeProcessText" name="KnowledgeProcessText"
                                                 class="form-control" value="{{ KnowledgeProcess }}" disabled>
-                                            <div id="hideKnowledgeProcess">
+                                            <!-- <div id="hideKnowledgeProcess">
                                                 {{ KnowledgeForm.KnowledgeProcess }}
-                                            </div>
+                                            </div> -->
+
+                                        </div>
+
+
+                                        <div style="margin-top: 26px;" class="col-md-6 col-sm-12 col-xs-12 form-group pull-right">
+                                            <label for="KnowledgeProcessText"
+                                                class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">فرایند
+                                                دانش</label>
+
+                                            <select name="KnowledgeProcess" id="id_KnowledgeProcess"></select>
 
                                         </div>
 
@@ -2290,6 +2301,36 @@ $('#id_KnowledgeTitle').attr('required', true)
 
     
         
+
+</script>
+
+
+<script>
+
+
+        function chartTreeinput (id) {
+            const chartID = id
+
+            
+            console.log("chartID",chartID)
+            $.ajax({                       // initialize an AJAX request
+                type: "POST",
+                url: '{% url "find_chart_tree_level3" %}',
+                data: {
+                    'chart_id': chartID,       // add the country id to the POST parameters
+                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (data) {   // `data` is from `topic1_view` view 
+                    document.getElementById('id_KnowledgeProcess').innerHTML = "";
+                    console.log('data',data)
+                    let arr_from_json = JSON.parse(data);
+                    for (let i = 0; i < arr_from_json.length; i++) {
+                    $('#id_KnowledgeProcess').append("<option value=" + arr_from_json[i].id + ">" + arr_from_json[i].text + "</option>");
+                }
+            
+                }
+            });
+        };
 
 </script>
     {% endblock pageContent %}
