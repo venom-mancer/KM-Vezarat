@@ -1,11 +1,8 @@
 from msilib.schema import Class
-from pyexpat import model
 from django import forms
-from django.db.models import fields
-from django.db.models.fields import CharField
 from KnowledgeManagement.models import TblKnowledgeDocuments, TblKnowledgeTitle,TblKnowledgeRequest,send_to_evaluator
 from KnowledgeManagement.models import TblKnowledge,Informs_meeting,FeedFile_Jalase,recive_invitation,rejected_knowledge, Members,Documentation, TblKnowledgeCategory,books,TblJalase,passed_trials ,inventions,articles,FeedFile,skills,pro_degree,edu_records,job_record
-from KnowledgeManagement.models import TblKnowledge, Members,Documentation,TblQuestionRequest,TblInform,TblKeyIndicator,TblAnswerQuestionRequest,TblUserRewards, TblKnowledgeCategory,TblExpertReview,books,indicator_assessment_model,passed_trials ,inventions,articles,FeedFile,skills,pro_degree,edu_records,job_record,TblExam,TblQuestion,TblAnswerKnowledgeRequest
+from KnowledgeManagement.models import TblKnowledge, Members,Documentation,TblQuestionRequest,TblInform,TblKeyIndicator,TblAnswerQuestionRequest,TblUserRewards,TblSpecialKnowledge, TblKnowledgeCategory,TblExpertReview,books,indicator_assessment_model,passed_trials ,inventions,articles,FeedFile,skills,pro_degree,edu_records,job_record,TblExam,TblQuestion,TblAnswerKnowledgeRequest
 from APAvalidations import validate_name, validate_file, validate_image, validate_date
 from django.contrib.auth.forms import PasswordChangeForm,UserCreationForm
 from .models import Members, TblChartAdvanceInfo, TblKnowledgeValueIT, TblSuervey
@@ -85,6 +82,11 @@ class TblKnowledgeForm(forms.ModelForm):
         model = TblKnowledge
         fields = "__all__"
 
+
+class TblSpecialKnowledgeForm(forms.ModelForm):
+    class Meta:
+        model = TblSpecialKnowledge
+        fields = "__all__"
 
 class TblKnowledgeErteghaForm(forms.ModelForm):
 
