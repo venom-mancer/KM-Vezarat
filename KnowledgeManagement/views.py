@@ -1,10 +1,4 @@
-from ast import Not
 from asyncio.windows_events import NULL
-from atexit import register
-from calendar import month
-from dataclasses import replace
-from genericpath import exists
-from itertools import count
 import json
 from posixpath import split
 from APAUtility.text_mining import spaces_between_words_dict
@@ -14,10 +8,7 @@ from re import S
 from itertools import chain
 from tkinter.messagebox import NO
 from turtle import down
-from typing import Generic
-from unittest import result
 from django.db.models import Avg, Max
-from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
 from APAUtility.LibAPADateTime import get_persian_date_normalized, get_persian_year_normalized
 from KnowledgeManagement.forms import TblKnowledgeDocumentsForm, TblInform_FORM, TblAnswerQuestionRequestForm, TblExpertReviewForm, DocumentationForm, indicator_assessmentForm, passed_trialsForm, inventionsForm, booksForm, articlesForm, skillsForm, pro_degreeForm, edu_recordsForm, job_recordForm, TblKnowledgeForm, SearchForm, CustomUserCreationForm, UpdateProfileForm, TblKnowledgeRequestForm, TblExamForm, TblQuestionForm, TblAnswerKnowledgeRequestForm
@@ -29,10 +20,9 @@ import jdatetime
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views import generic
 from django.db.models import Count, Q, F
 from KnowledgeManagement.notifications import km_notifications
-from .forms import PasswordChangingForm, FileModelForm, Informs_meetingForm, TblKnowledgeValueITForm, TblUserRewardsForm, indicator_KeyForm, TblChartAdvanceInfoForm, TblKnowledgeErteghaForm, TblQuestionRequestForm, TblJalaseForm, TblSurveyForm, send_to_evaluatorForm, FeedFile_JalaseForm, send_invite, rejectForm
+from .forms import PasswordChangingForm, FileModelForm, Informs_meetingForm,TblSpecialKnowledgeForm, TblKnowledgeValueITForm, TblUserRewardsForm, indicator_KeyForm, TblChartAdvanceInfoForm, TblKnowledgeErteghaForm, TblQuestionRequestForm, TblJalaseForm, TblSurveyForm, send_to_evaluatorForm, FeedFile_JalaseForm, send_invite, rejectForm
 from django.http.response import JsonResponse
 from django.shortcuts import (get_object_or_404, render, HttpResponseRedirect)
 from django.contrib.auth.models import Group
@@ -42,7 +32,7 @@ import datetime
 from .search_functions import knowledge_advance_search
 from KnowledgeManagement.models import Members, SendSurvey2Member, TblAnswerKnowledgeRequest, TblAnswerOptionSurvey, TblAnswerQuestionRequest, TblChartAdvanceInfo, TblChartDocument, TblExpertReview, TblFollowed, TblFollowerFollowedIndicator, TblJalase, TblKnowledgeRequestNotification, TblKnowledgeStatusNotification, TblKnowledgeValueIT, TblKpiExpertReview, TblMessageUser, TblMessageUserNotification, TblQuestionRequestNotification, TblScoreFormula, TblSuervey, TblSuerveyOptions, TblTeamDocumentation, TblUserRewards, TblVoteQuestionAnswer, books, passed_trials, Documentation, TblChart, TblKeywords, TblKnowledgeCategory, TblKnowledgeConditions, \
     TblKnowledgeDocuments, \
-    TblKnowledgeHow, \
+    TblKnowledgeHow,TblSpecialKnowledge, \
     TblKnowledgeOpportunities, TblVoteQuestion, TblUsedQuestionKnowledge, TblUsedQuestionRequest, TblKnowledgeProblemPreventation, TblChartAdvanceInfo, TblQuestionRequest, Informs_meeting, indicator_assessment_model, TblKnowledgeResource, TblKnowledgeResults, \
     TblKnowledgeRisks, TblKnowledgeTitle, FeedFile_Jalase, TblTeam_Jalase, TblKnowledge, TblKnowledgeCause, TblKnowledgeUsedCases, \
     TblKnowledgeWhichAction, TblKnowledgeEvaluation, rejected_knowledge, skills, inventions, TblKnowledgeSpecial, TblTeam, \
@@ -395,6 +385,9 @@ def RegintserExperience(request, type):
         Title = 'ثبت تجربه'
 
     file_form = FileModelForm()
+
+    special_knowledge_form = TblSpecialKnowledgeForm()
+    
     conetxt.update({
         'teamCount': 1,
         'Title': '{}'.format(Title),
@@ -404,6 +397,7 @@ def RegintserExperience(request, type):
         'members': memebers,
         'FileModelForm': file_form,
         'voice': 0,
+        'special_knowledge_form' : special_knowledge_form ,
 
     })
 
@@ -421,6 +415,7 @@ def RegintserExperience(request, type):
 
         if form.is_valid():
             obj = form.save()
+            specialknowledge_obj = special_knowledge_form.save()
             obj.voice_url = audio
             try:
                 memebers_to_save = request.POST.getlist('member')

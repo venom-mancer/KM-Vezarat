@@ -112,53 +112,6 @@
     </script>
 
     <script src="{% static 'assets/vendors/tinymce/tinymce.min.js' %}"></script>
-    <!-- tinyMce -->
-    <!-- <script type="text/javascript">
-        tinymce.init({
-            selector: 'textarea',
-            editor_select2or: "id_KnowledgeTextSummary",
-            height: 300,
-            language: "fa_IR",
-            plugins: [
-                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-                'searchreplace wordcount visualblocks visualchars code fullscreen',
-                'insertdatetime media nonbreaking save table directionality',
-                'emoticons template paste textpattern imagetools image'
-            ],
-            image_advtab: true,
-            toolbar1: 'bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect ',
-            toolbar2: 'cut copy paste pastetext pasteword | search replace bullist numlist | outdent indent blockquote | undo redo | link unlink anchor image cleanup help code | insertdate inserttime preview | forecolor backcolor',
-            toolbar3: 'tablecontrols hr removeformat visualaid | sub sup | charmap emotions iespell media advhr | print | ltr rtl | fullscreen | insertlayer moveforward movebackward absolute | styleprops spellchecker | cite abbr acronym del ins attribs | visualchars nonbreaking template blockquote pagebreak | insertfile insertimage emoticons',
-            // enable title field in the Image dialog
-            image_title: true,
-            // enable automatic uploads of images represented by blob or data URIs
-            automatic_uploads: true,
-            // add custom filepicker only to Image dialog
-            file_picker_types: 'image',
-            file_picker_callback: function (cb, value, meta) {
-                let input = document.createElement('input');
-                input.setAttribute('type', 'file');
-                input.setAttribute('accept', 'image/*');
-                input.onchange = function () {
-                    let file = this.files[0];
-                    let reader = new FileReader();
-                    reader.onload = function () {
-                        let id = 'blobid' + (new Date()).getTime();
-                        let blobCache = tinymce.activeEditor.editorUpload.blobCache;
-                        let base64 = reader.result.split(',')[1];
-                        let blobInfo = blobCache.create(id, file, base64);
-                        blobCache.add(blobInfo);
-                        // call the callback and populate the Title field with the file name
-                        cb(blobInfo.blobUri(), { title: file.name });
-                    };
-                    reader.readAsDataURL(file);
-                };
-                input.click();
-            }
-        });
-    </script> -->
-
-
     <script>
         function groups(){
             var radios = document.getElementsByName('KnowledgeIsGroup');
@@ -836,12 +789,10 @@
                                 </div>
                             </li>
                             {% endif %}
-                                
 
                         </ul>
                 </div>
             </div>
-
 
             <div style="border: solid 1px;" class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
                 <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right">
@@ -920,7 +871,8 @@
                 {% if special_knowledge == 1 %}
                     <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right" onchange="special();" >
                         <label for="CreatorUserID"
-                        class="control-label col-md-5 col-sm-3 col-xs-12 pull-right">آیا دانش شما ویژه است؟</label>       <div class="toggle-radio">
+                        class="control-label col-md-5 col-sm-3 col-xs-12 pull-right">آیا دانش شما ویژه است؟</label>       
+                        <div class="toggle-radio">
                             <input type="radio" name="KnowledgeIsSpecial" id="yes"checked value="1">
                             <input type="radio" name="KnowledgeIsSpecial" id="no" value="2">
                             <div class="switch" style="margin:-19px -14px;">
@@ -931,7 +883,49 @@
                           </div>
                     </div>
                     <div id='specdiv' class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
-                        {{ KnowledgeForm.KnowledgeSpecialReason }}
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">دلیل ویژه بودن </label>
+                            <div class="clearfix"></div>
+                            {{ KnowledgeForm.KnowledgeSpecialReason }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">هزینه ی دانش</label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.currentprofit }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">سود قبلی  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.previuos_profit }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد تسریع کار  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.Job_acceleration_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد کاهش هزینه  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.cost_reduction_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد کاهش صرفه جویی  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.economy_reduction_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد افزایش بهره وری </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.productivity_increasing_percentage }}
+                        </div>
+                        
                     </div>
 
                 {% else %}
@@ -950,7 +944,46 @@
                     </div>
                     <div id='specdiv' class="control-label col-md-12 col-sm-12 col-xs-12 pull-right hidden">
                         <textarea name="KnowledgeSpecialReason" id="" cols="30" rows="10"></textarea>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">هزینه ی دانش</label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.currentprofit }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">سود قبلی  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.previuos_profit }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد تسریع کار  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.Job_acceleration_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد کاهش هزینه  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.cost_reduction_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد کاهش صرفه جویی  </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.economy_reduction_percentage }}
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                            <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">درصد افزایش بهره وری </label>
+                            <div class="clearfix"></div>
+                            {{ special_knowledge_form.productivity_increasing_percentage }}
+                        </div>
+    
                     </div>
+
+                    
                     <br>
                 {% endif %}
                     <br>
