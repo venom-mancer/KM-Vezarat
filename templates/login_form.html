@@ -1,0 +1,436 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa-ir" dir="rtl">
+<head>
+	<title>login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+<!--===============================================================================================-->
+    <link href="{% static 'assets\vendors\bootstrap-5.0.2-dist\css\bootstrap.min.css' %}" rel="stylesheet"/>
+	<link href="{% static 'assets/fonts/vazir/Vazirmatn-font-face.css'%}" rel="stylesheet"/>
+<!--===============================================================================================-->
+<link href="{% static 'assets/vendors/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"/>
+</head>
+
+
+<body class="bg-image">
+	<style>
+ * {
+	margin: 0px; 
+	padding: 0px;
+  font-family: Vazirmatn;
+	box-sizing: border-box;
+	text-decoration: none;
+}
+			.textgray {
+			  color: gray;
+			  font-family: Vazirmatn;
+			}
+			.login {
+			  width: 360px;
+			  height: min-content;
+			  padding: 20px;
+			  border-radius: 12px;
+			  background: #ffffff;
+			  border: 2px solid #0081a7;
+			  border-radius: 15px;
+			  font-family: Vazirmatn;
+			}
+			
+			.login h1 {
+			  font-size: 36px;
+			  margin-bottom: 25px;
+			  font-family: Vazirmatn;
+			}
+			
+			.login form {
+			  font-size: 20px;
+			  font-family: Vazirmatn;
+			}
+			
+			.login form .form-group {
+			  margin-bottom: 12px;
+			  font-family: Vazirmatn;
+			}
+			
+			.login form input[type="submit"] {
+			  font-size: 20px;
+			  margin-top: 15px;
+			  font-family: Vazirmatn;
+			}
+			.btn-success,
+			.btn-success:active,
+			.btn-success:visited {
+			  background-color: #47B5FF !important;
+			  border-color: #ffffff00 !important;
+			  font-family: Vazirmatn;
+			}
+			.btn-success:hover {
+			  background-color: #3e9fe0 !important;
+			  font-family: Vazirmatn;
+			}
+			
+			.gradient-custom-2 {
+			  /* fallback for old browsers */
+			  background: #343434;
+			
+			  /* Chrome 10-25, Safari 5.1-6 
+			  background: -webkit-linear-gradient(
+				to right,
+				#0081A7,
+				#0081A7,
+				#36ddcf,
+				#4575b4
+			  );*/
+			
+			  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ 
+			  background: linear-gradient(to right, #24ee35, #3bd836, #36ddcf, #4575b4);*/
+			}
+			
+			@media (min-width: 768px) {
+			  .gradient-form {
+				height: 100vh !important;
+			  }
+			}
+			@media (min-width: 769px) {
+			  .gradient-custom-2 {
+				border-top-right-radius: 0.3rem;
+				border-bottom-right-radius: 0.3rem;
+			  }
+			}
+			.userinput{
+				 box-shadow: 0 0 1rem 0 rgba(0,0,0,0.5)!important;
+			}
+			.login-card{
+				box-shadow: 13px 13px 15px, -13px -13px 20px rgba(0, 0, 0, 0.266);
+			}
+
+			/* .float{
+				position:fixed;
+				width:60px;
+				height:60px;
+				bottom:40px;
+				right:40px;
+				background-color:#47B5FF;
+				color:#FFF;
+				border-radius:50px;
+				text-align:center;
+				box-shadow: 0 0 1rem 0 #00b2f988!important;
+			}
+			.float:hover{
+				color: #343434;
+			}
+			i:hover{
+				color:#343434;
+			}
+
+			.my-float{
+				margin-top:22px;
+			} */
+
+			.bg-image{
+				background: url({% static 'assets\images\pol-sefid-ahvaz-blur.png' %});
+				/* height: 100%;  */
+				background-position: bottom;
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			.dropup-content {
+				display: none;
+				position: absolute;
+				background-color: #f1f1f1;
+				min-width: 160px;
+				bottom: 50px;
+				z-index: 1;
+			}
+			.dropup:hover .dropup-content {
+				display: block;
+			}
+
+			.dropup:hover .dropbtn {
+  				background-color: #2980B9;
+			}
+
+			/* CHATBOX
+			=============== */
+			.chatbox {
+				position: absolute;
+				bottom: 30px;
+				right: 30px;
+			}
+
+			/* CONTENT IS CLOSE */
+			.chatbox__support {
+				display: flex;
+				flex-direction: column;
+				background: #eee;
+				width: 450px;
+				height: 260px;
+				z-index: -123456;
+				opacity: 0;
+				transition: all .5s ease-in-out;
+			}
+
+			/* CONTENT ISOPEN */
+			.chatbox--active {
+				transform: translateY(-40px);
+				z-index: 123456;
+				opacity: 1;
+			}
+
+			/* BUTTON */
+			.chatbox__button {
+				text-align: right;
+			}
+
+			.chatbox__button>button {
+				text-align: right;
+				padding: 10px 15px;
+				border-radius: 30px;
+				background-color: #47B5FF;
+			}
+
+			/* HEADER */
+			.chatbox__header {
+				position: sticky;
+				top: 0;
+				background: #47B5FF;
+				padding-top: 10px;
+				padding-right: 10px;
+			}
+
+			/* MESSAGES */
+			.chatbox__messages {
+				margin-top: auto;
+				display: flex;
+				flex-direction: column;
+				overflow-y: scroll;
+				flex-direction: column-reverse;
+			}
+
+			.messages__item {
+				background: orange;
+				max-width: 60.6%;
+				width: fit-content;
+			}
+
+			.messages__item--operator {
+				margin-left: auto;
+			}
+
+			.messages__item--visitor {
+				margin-right: auto;
+			}
+
+			/* FOOTER */
+			.chatbox__footer {
+				position: sticky;
+				bottom: 0;
+			}
+
+			.messages__item--typing {
+				will-change: transform;
+				width: auto;
+				border-top-right-radius: 20px;
+				border-top-left-radius: 20px;
+				border-bottom-right-radius: 20px;
+				padding: 15px 20px;
+				display: table;
+				margin-right: auto;
+				position: relative;
+				animation: 2s bulge infinite ease-out;
+			}
+
+			.messages__item--typing::before,
+			.messages__item--typing::after {
+				content: '';
+				position: absolute;
+				bottom: -2px;
+				left: -2px;
+				height: 10px;
+				width: 10px;
+				border-radius: 50%;
+			}
+			.messages__item--typing::after {
+				height: 10px;
+				width: 10px;
+				left: -10px;
+				bottom: -10px;
+			}
+			span.messages__dot {
+				height: 8px;
+				width: 8px;
+				float: left;
+				margin: 0 1px;
+				background-color: #9E9EA1;
+				display: block;
+				border-radius: 50%;
+				opacity: 0.4;
+				animation: 1s blink infinite;
+			}
+			
+			@keyframes blink {
+				50% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes bulge {
+				50% {
+					transform: scale(1.05);
+				}
+			}
+  
+			.bg-body{
+				background-color: #cecece4f !important;
+			}
+
+			.login-header4{
+				color: rgb(255, 255, 255);	
+			}
+
+			.header-gradient{
+				background: #fff;
+				background: #fff; 
+			}
+
+		</style>
+	<div class="container-fluid">
+		<header class="d-flex justify-content-between .bg-image">
+			<img class="mx-md-5" role="img" weight="70vh" height="100vh" src="{% static 'flag.png' %}" alt=""/>
+		  <div class="mx-md-5">
+			<img class="" role="img" width="100vh" height="100vh" src="{% static 'assets\images\IRI-KHZ-WHITE.png' %}" alt=""/>
+		  </div>
+		</header>
+	  </div>
+	  <section class="h-100 gradient-form bg-image">
+		<div class="container py-5 h-100 ">
+		  <div class="row d-flex justify-content-center align-items-center">
+			<div class="col-xl-6">
+			  <div class="card rounded-3 text-black shadow mb-5 bg-body rounded login-card">
+				<div class="row g-0">
+				  <div class="col-lg-12">
+					<div class="card-body p-md-5 mx-md-4">
+					  <div class="text-center">
+						<!-- <img
+						  src="{% static 'assets\images\erike-logo.png' %}"
+						  style="width: 185px"
+						  alt="logo"
+						/> -->
+						<h4 class="mt-1 mb-5 pb-1 login-header4">ورود به سامانه</h4>
+						<form action="" method="post">
+							{% csrf_token %}
+							<div class="form-floating mb-3 validate-input">
+							  <input type="username" class="form-control userinput" placeholder="username" name="username" value="{{ username }}"  id="username">
+							  <label class="form-label" for="username">نام کاربری</label>
+							</div>
+							<div class="form-floating mb-3 validate-input">
+							  <input type="password" class="form-control userinput" placeholder="password" name="password" id="password">
+							  <label class="form-label" for="username">گذرواژه</label>
+							</div>
+							<div class="d-grid">
+							  <button class="btn btn-lg btn-success btn-login text-uppercase fw-bold mt-3" type="submit">ورود</button>
+							</div>
+							{% for message in messages %}
+							<div id="remove_on_click" class="alert alert-danger mt-5">
+							  <a class="close" href="#" onclick="document.getElementById('remove_on_click').style.display = 'none'" data-dismiss="alert">×</a>
+							  {{ message }}
+							</div>
+						  {% endfor %}
+						  </form>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+	</div>
+			<div class="chatbox">
+			<div class="chatbox__support">
+				<div class="chatbox__header"><p>آگاهی رسانی</p></div>
+				<div class="chatbox__messages">
+				<div>
+					{% for item in get_information %}
+						<div class="p-3 d-flex align-items-center bg-light border-bottom osahan-post-header">
+							<div class="font-weight-bold mr-3">
+								<button class="text-truncate collapsible" onclick="collaps_infos(this)" name="info" id="{{item.id}}">{{item.title}}</button>
+								<div class="content">{{item.text |safe}}</div>
+							</div>
+						</div>
+	
+						{% endfor %}
+				</div>
+				</div>
+			</div>
+			<div class="chatbox__button">
+				<button>
+					<i class="fa fa-bell" style="color: #fff;"></i>
+				</button>
+			</div>
+			</div>
+
+			<script>
+				class InteractiveChatbox {
+				constructor(a, b, c) {
+					this.args = {
+						button: a,
+						chatbox: b
+					}
+					this.icons = c;
+					this.state = false; 
+				}
+
+				display() {
+					const {button, chatbox} = this.args;
+					
+					button.addEventListener('click', () => this.toggleState(chatbox))
+				}
+
+				toggleState(chatbox) {
+					this.state = !this.state;
+					this.showOrHideChatBox(chatbox, this.args.button);
+				}
+
+				showOrHideChatBox(chatbox, button) {
+					if(this.state) {
+						chatbox.classList.add('chatbox--active')
+						this.toggleIcon(true, button);
+					} else if (!this.state) {
+						chatbox.classList.remove('chatbox--active')
+						this.toggleIcon(false, button);
+					}
+				}
+
+				toggleIcon(state, button) {
+					const { isClicked, isNotClicked } = this.icons;
+					let b = button.children[0].innerHTML;
+
+					if(state) {
+						button.children[0].innerHTML = isClicked; 
+					} else if(!state) {
+						button.children[0].innerHTML = isNotClicked;
+					}
+				}
+			}
+			</script>
+			<script>
+				const chatButton = document.querySelector('.chatbox__button');
+				const chatContent = document.querySelector('.chatbox__support');
+				const icons = {
+					isClicked: '<i class="fa fa-times" style="color: #fff;"></i>',
+					isNotClicked: '<i class="fa fa-bell" style="color: #fff;"></i>'
+				}
+				const chatbox = new InteractiveChatbox(chatButton, chatContent, icons);
+				chatbox.display();
+				chatbox.toggleIcon(false, chatButton);
+			</script>
+
+	  </section>
+		<script src="{% static 'assets\vendors\bootstrap-5.0.2-dist\js\bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
+
