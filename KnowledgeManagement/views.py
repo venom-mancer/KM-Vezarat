@@ -136,6 +136,35 @@ def create_chart_tree(parent_num):
     return tree
 
 
+# creates the tree without the last layer which is knowledge process type 3
+def create_chart_tree_without_knowledge_process(parent_num):
+    if parent_num is None:
+        chart = TblChart.objects.filter(Parent__isnull=True).filter(Status=1).exclude(ChartType = 3)
+    else:
+        chart = TblChart.objects.filter(Parent=parent_num).filter(Status=1).exclude(ChartType = 3)
+    tree = ""
+    for item in chart:
+        sub_chart = TblChart.objects.filter(
+            Parent=item.Chart).filter(Status=1).count()
+        style = "color: #337ab7;"
+        if item.ChartType == 2:
+            style = "color: #ffc107"
+        if item.ChartType == 3:
+            style = "color: #3c763d;"
+
+        if sub_chart == 0:
+            tree += '<li><a href="#" style="' + style + '" onclick="setChartId(' + str(
+                item.Chart) + ',\'' + item.ChartText + '\',\'' + str(item.ChartType) + '\');">' + \
+                item.ChartText + '</a></li>'
+        else:
+            tree += '<li><a href="#" style="' + style + '" onclick="setChartId(' + str(
+                item.Chart) + ',\'' + item.ChartText + '\',\'' + str(
+                item.ChartType) + '\');">' + item.ChartText + '</a>'
+            tree += '<ul>' + \
+                    create_chart_tree_without_knowledge_process(item.Chart) + '</ul></li>'
+    return tree
+
+
 def _delete_file(path):
     """ Deletes file from filesystem. """
     if os.path.isfile(path):
@@ -376,7 +405,7 @@ def RegintserExperience(request, type):
     if not is_knowlege_worker(request.user):
         return HttpResponseRedirect('/login')
     conetxt = dict(set_contex(request.user))
-    html_chart = create_chart_tree(None)
+    html_chart = create_chart_tree_without_knowledge_process(None)
 
     status_determiner = request.POST.get('registerDeterminer')
 
@@ -4886,6 +4915,24 @@ def rejected_knowledgeView(request, id):
     }
     return render(request, 'rejected_knowledgeView.html', context)
 
+
+@login_required
+def find_chart_tree_level3(request):
+    """Ajax func for topic2 dropw down list"""
+    if request.method == "POST":
+        chart_id = request.POST['chart_id']
+        this_chart_obj = TblChart.objects.get(Chart = chart_id)
+        sub_charts = TblChart.objects.filter(Status = 1).filter(ChartType = 3).filter(location__startswith = this_chart_obj.location )
+        # data = serializers.serialize('json', list(subject), fields=('state','id'))
+    json = "["
+    for item in sub_charts:
+        if len(json) > 1:
+            json += ","
+        json += "{\"id\":\"" + str(item.Chart) + \
+                "\", \"text\":\"" + item.ChartText + "\"}"
+    json += "]"
+
+    return JsonResponse(json, safe=False)
 
 @login_required
 def topic2_view(request):

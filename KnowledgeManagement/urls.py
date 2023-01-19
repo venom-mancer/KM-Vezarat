@@ -183,6 +183,7 @@ urlpatterns = [
          views.It_send_back_to_evaluator, name='ItSendsBackToEvaluator'),
     path("ItSendsBackToKnowledgeWorker/<int:id>",
          views.It_send_back_to_knowledgeWorker_review, name='ItSendsBackToKnowledgeWorker'),
+    path("find_chart_tree_level3/", views.find_chart_tree_level3, name="find_chart_tree_level3"),
     path("topic2_view/", views.topic2_view, name="topic2_view"),
     path("topic3_view/", views.topic3_view, name="topic3_view"),
     path("indicator_assessment_list/", views.indicator_assessment_list,
