@@ -1505,15 +1505,15 @@ class TblSpecialKnowledge(models.Model):
 
     previuos_profit = TextField(verbose_name='سود قبلی ',max_length=4000,blank=True, null=True)
     previuos_profit_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
-    Job_acceleration_percentage = TextField(verbose_name='درصد تسریع کار  ',max_length=4000,blank=True, null=True)
+    Job_acceleration_percentage = TextField(verbose_name=' تسریع کار  ',max_length=4000,blank=True, null=True)
     Job_acceleration_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
     
-    cost_reduction_percentage = TextField(verbose_name='درصد کاهش هزینه  ',max_length=4000,blank=True, null=True)
+    cost_reduction_percentage = TextField(verbose_name=' کاهش هزینه  ',max_length=4000,blank=True, null=True)
     cost_reduction_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
-    economy_reduction_percentage = TextField(verbose_name='درصد کاهش صرفه جویی  ',max_length=4000,blank=True, null=True)
+    economy_reduction_percentage = TextField(verbose_name=' کاهش صرفه جویی  ',max_length=4000,blank=True, null=True)
     economy_reduction_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
     
-    productivity_increasing_percentage = TextField(verbose_name='درصد افزایش بهره وری  ',max_length=4000,blank=True, null=True)
+    productivity_increasing_percentage = TextField(verbose_name=' افزایش بهره وری  ',max_length=4000,blank=True, null=True)
     productivity_increasing_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
 
     def __str__(self):

@@ -386,7 +386,8 @@ def RegintserExperience(request, type):
 
     file_form = FileModelForm()
 
-    special_knowledge_form = TblSpecialKnowledgeForm()
+    special_knowledge_form = TblSpecialKnowledgeForm(request.POST or None)
+    specialknowledgeform = special_knowledge_form.is_valid()
     
     conetxt.update({
         'teamCount': 1,
@@ -413,9 +414,12 @@ def RegintserExperience(request, type):
         else:
             form = TblKnowledgeForm(request.POST, request.FILES)
 
-        if form.is_valid():
+        
+        if form.is_valid() and specialknowledgeform :
             obj = form.save()
             specialknowledge_obj = special_knowledge_form.save()
+            specialknowledge_obj.knowledge = obj
+            specialknowledge_obj.save()
             obj.voice_url = audio
             try:
                 memebers_to_save = request.POST.getlist('member')

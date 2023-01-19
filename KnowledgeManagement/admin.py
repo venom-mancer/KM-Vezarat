@@ -1,5 +1,4 @@
 from django.contrib import admin
-from django.db.models import fields
 from KnowledgeManagement.models import Members
 from .models import Members, SendSurvey2Member, TblAnswerOptionSurvey, TblChartAdvanceInfo, TblChartDocument, TblDependentChart, TblKnowledgeValueIT, TblKpiExpertReview, TblScoreFormula, TblSuervey, TblSuerveyOptions, books 
 from .forms import UserCreationForm,CustomUserCreationForm
@@ -7,7 +6,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 from KnowledgeManagement.models import TblKnowledge, TblKnowledgeCategory, TblKnowledgePermission, \
     TblKnowledgeTitle, TblKnowledgeCause, TblKnowledgeWhichAction, TblKnowledgeHow, \
-    TblKnowledgeResource, TblKnowledgeEvaluation, TblKnowledgeConditions, TblKnowledgeRisks,books,Documentation, TblKnowledgeResults, TblUserRewards,\
+    TblKnowledgeResource, TblKnowledgeEvaluation, TblKnowledgeConditions, TblKnowledgeRisks,books,Documentation, TblKnowledgeResults, TblUserRewards,TblSpecialKnowledge,\
     TblKnowledgeUsedCases,send_to_evaluator,TblVoiceRecord,TblInform,TblTeamDocumentation,TblKnowledgeNotificationForEliteUsers,TblKeyIndicator,TblExamNotification,TblSurveyotification,TblTeam_Jalase,TblUsedKnowledge,TblExpertReview,TblQuestionRequest,TblVoteSendQuestion,TblAnswerQuestionRequest,TblExpertReviewIndicatorAssessment,recive_invitation,Informs_meeting,indicator_assessment_model, TblUsedDomain,rejected_knowledge,skills,inventions,passed_trials,FeedFile_Jalase, TblKnowledgeProblemPreventation,articles, TblChart,pro_degree,job_record, TblKeywords,edu_records, TblTeam, like, view,TblKnowledgeDocuments,FeedFile,TblKnowledgeSpecial,TblIsGroup,TblKnowledgeRequest,TblTeam2,FeedFileDocumentation,TblJalase,TblKnowledgeUsedCases, TblUsedDomain,skills,inventions,passed_trials, TblKnowledgeProblemPreventation,articles, TblChart,pro_degree,job_record, TblKeywords,edu_records, TblTeam, like, view,TblKnowledgeDocuments,FeedFile,TblKnowledgeSpecial,TblIsGroup,TblKnowledgeRequest,TblTeam2,FeedFileDocumentation,TblExam,TblQuestion,TblQuestionOptions,SendExam2member,MemberChart,topic1,topic2,topic3,ExpertChart,TblAnswerOption,TblAnswerKnowledgeRequest,TblVoteQuestion,TblVoteQuestionAnswer,TblFollowerFollowedIndicator,TblFollowed,TblMessageUser
 
 
@@ -226,3 +225,4 @@ admin.site.register(TblKeyIndicator)
 admin.site.register(TblKpiExpertReview)
 admin.site.register(TblKnowledgeValueIT)
 admin.site.register(TblUserRewards)
+admin.site.register(TblSpecialKnowledge)
