@@ -473,7 +473,7 @@
                                                 {{ html_chart|safe }}
                                             </ul>
                                             <input type="text" id="KnowledgeProcessText" name="KnowledgeProcessText"
-                                                class="form-control" value="{{ KnowledgeProcess }}" disabled>
+                                                class="form-control" value="{{ KnowledgeProcess.Parent }}" disabled>
                                             <!-- <div id="hideKnowledgeProcess">
                                                 {{ KnowledgeForm.KnowledgeProcess }}
                                             </div> -->
@@ -486,7 +486,15 @@
                                                 class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">فرایند
                                                 دانش</label>
 
-                                            <select name="KnowledgeProcess" id="id_KnowledgeProcess"></select>
+                                            <select name="KnowledgeProcess" id="id_KnowledgeProcess">
+                                                
+                                                {% if KnowledgeProcess %}
+
+                                                <option value="{{ KnowledgeProcess.Chart }}">{{ KnowledgeProcess }}</option>
+                                                    
+                                                {% endif %}
+                                                    
+                                            </select>
 
                                         </div>
 
