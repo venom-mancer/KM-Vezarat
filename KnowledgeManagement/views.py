@@ -568,8 +568,6 @@ def EditExperience(request, id):
 
     obj_knowledge = get_object_or_404(TblKnowledge, KnowledgeCode=id)
 
-    obj_special_knowledge = get_object_or_404(TblSpecialKnowledge, knowledge=id)
-
     knowledgeType = obj_knowledge.Type
 
     if TblKnowledge.objects.filter(KnowledgeCode=id).exists():
@@ -606,6 +604,11 @@ def EditExperience(request, id):
             else:
                 knowledge_form = TblKnowledgeForm(
                     request.POST or None, instance=obj_knowledge)
+
+            if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
+                obj_special_knowledge = get_object_or_404(TblSpecialKnowledge, knowledge=id)
+            else:
+                obj_special_knowledge = None
 
             special_knowledge_form = TblSpecialKnowledgeForm(request.POST or None , instance=obj_special_knowledge)
 
@@ -801,6 +804,13 @@ def Recycle_Knowledge(request, id):
             member.pk = None
             member.KnowledgeCode = Clone_Knowledge_Obj
             member.save()
+
+        if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
+
+            Clone_Special_Knowledge_Obj = TblSpecialKnowledge.objects.get(knowledge=id)
+            Clone_Special_Knowledge_Obj.pk = None
+            Clone_Special_Knowledge_Obj.knowledge = Clone_Knowledge_Obj
+            Clone_Special_Knowledge_Obj.save()
 
     return HttpResponseRedirect('/EditExperience/{}'.format(Clone_Knowledge_Obj.KnowledgeCode))
 
