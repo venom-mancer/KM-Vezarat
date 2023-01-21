@@ -568,6 +568,8 @@ def EditExperience(request, id):
 
     obj_knowledge = get_object_or_404(TblKnowledge, KnowledgeCode=id)
 
+    obj_special_knowledge = get_object_or_404(TblSpecialKnowledge, knowledge=id)
+
     knowledgeType = obj_knowledge.Type
 
     if TblKnowledge.objects.filter(KnowledgeCode=id).exists():
@@ -605,8 +607,13 @@ def EditExperience(request, id):
                 knowledge_form = TblKnowledgeForm(
                     request.POST or None, instance=obj_knowledge)
 
+            special_knowledge_form = TblSpecialKnowledgeForm(request.POST or None , instance=obj_special_knowledge)
+
             html_chart = create_chart_tree(None)
-            if knowledge_form.is_valid() and request.method == "POST":
+
+            specialknowledgeform = special_knowledge_form.is_valid()
+
+            if knowledge_form.is_valid() and specialknowledgeform and request.method == "POST":
 
                 audio_name = request.POST.get('hidden_audio')
                 if audio_name != '':
@@ -622,13 +629,20 @@ def EditExperience(request, id):
                 else:
                     keywords = ''
 
-                obj = knowledge_form.save()
+                obj = knowledge_form.save()           
                 obj.Status_who_registered = request.user.Status
                 obj.save()
                 if int(status_determiner) == 2:
                     obj.register_status = 3
                     obj.save()
 
+                if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
+                        TblSpecialKnowledge.objects.filter(knowledge=id).delete()
+                        specialknowledge_obj = special_knowledge_form.save()
+                        specialknowledge_obj.knowledge = obj
+                        specialknowledge_obj.save()
+                else:
+                    specialknowledge_obj = None
                 doc_files_title = request.POST.getlist('docTitle')
                 doc_files = request.FILES.getlist('Allfiles')
                 if len(doc_files) != 0 and len(doc_files_title) != 0 and len(doc_files) == len(doc_files_title):
@@ -690,6 +704,8 @@ def EditExperience(request, id):
                             'id': id,
                             'edit': 'edit',
                             'obj_knowledge': obj_knowledge,
+                            'obj_special_knowledge' : obj_special_knowledge,
+                            'special_knowledge_form' : special_knowledge_form,
                         }
                         )
                         return render(
@@ -737,8 +753,10 @@ def EditExperience(request, id):
                 'special_knowledge': special_knowledge,
                 'edit': 'edit',
                 'id': id,
+                'obj_special_knowledge' : obj_special_knowledge,
                 'obj_knowledge': obj_knowledge,
                 'voice': voice,
+                'special_knowledge_form' : special_knowledge_form ,
 
             }
             )
