@@ -218,7 +218,17 @@
 
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
                         <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"> <i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>
-                            حوزه دانش(فرآیند دانش) :</label>                           
+                            حوزه دانش :</label>                           
+                            {% if Knowledge.KnowledgeProcess %}
+                            <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">{{ Knowledge.KnowledgeProcess.Parent|safe }}</span>
+                            {% endif %}
+                    </div>
+
+                    <hr>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"> <i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>
+                            فرآیند دانش :</label>                           
                             {% if Knowledge.KnowledgeProcess %}
                             <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">{{ Knowledge.KnowledgeProcess|safe }}</span>
                             {% endif %}
