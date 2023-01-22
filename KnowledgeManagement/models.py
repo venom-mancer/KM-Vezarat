@@ -1498,22 +1498,22 @@ class TblUserRewards(models.Model):
 class TblSpecialKnowledge(models.Model):
 
     knowledge = ForeignKey(TblKnowledge,on_delete=PROTECT, null=True, blank=True)
-    knowledgecost = TextField(verbose_name='هزینه ی دانش',max_length=4000,blank=True, null=True)
+    knowledgecost = CharField(verbose_name='هزینه ی دانش',max_length=300,blank=True, null=True)
     knowledgecost_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
-    currentprofit = TextField(verbose_name=' سود فعلی دانش',max_length=4000,blank=True, null=True)
+    currentprofit = CharField(verbose_name=' سود فعلی دانش',max_length=300,blank=True, null=True)
     currentprofit_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
 
-    previuos_profit = TextField(verbose_name='سود قبلی ',max_length=4000,blank=True, null=True)
+    previuos_profit = CharField(verbose_name='سود قبلی ',max_length=300,blank=True, null=True)
     previuos_profit_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
-    Job_acceleration_percentage = TextField(verbose_name='درصد تسریع کار  ',max_length=4000,blank=True, null=True)
+    Job_acceleration_percentage = CharField(verbose_name='درصد تسریع کار  ',max_length=300,blank=True, null=True)
     Job_acceleration_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
     
-    cost_reduction_percentage = TextField(verbose_name=' کاهش هزینه  ',max_length=4000,blank=True, null=True)
+    cost_reduction_percentage = CharField(verbose_name=' کاهش هزینه  ',max_length=300,blank=True, null=True)
     cost_reduction_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
-    economy_reduction_percentage = TextField(verbose_name=' کاهش صرفه جویی  ',max_length=4000,blank=True, null=True)
+    economy_reduction_percentage = CharField(verbose_name=' کاهش صرفه جویی  ',max_length=300,blank=True, null=True)
     economy_reduction_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
     
-    productivity_increasing_percentage = TextField(verbose_name=' افزایش بهره وری  ',max_length=4000,blank=True, null=True)
+    productivity_increasing_percentage = CharField(verbose_name=' افزایش بهره وری  ',max_length=300,blank=True, null=True)
     productivity_increasing_percent = models.IntegerField(validators=[MaxValueValidator(100),MinValueValidator(1)], blank=True, null=True)
 
     def __str__(self):
