@@ -804,7 +804,8 @@ def Recycle_Knowledge(request, id):
             member.pk = None
             member.KnowledgeCode = Clone_Knowledge_Obj
             member.save()
-
+        
+        #creates clone from special knowledge tbl
         if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
 
             Clone_Special_Knowledge_Obj = TblSpecialKnowledge.objects.get(knowledge=id)
