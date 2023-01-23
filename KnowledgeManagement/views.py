@@ -155,6 +155,35 @@ def create_chart_tree_without_knowledge_process(parent_num):
     return tree
 
 
+# creates the tree without the last layer which is knowledge process type 3
+def create_chart_tree_without_knowledge_process_for_intrests(parent_num):
+    if parent_num is None:
+        chart = TblChart.objects.filter(Parent__isnull=True).filter(Status=1).exclude(ChartType = 3)
+    else:
+        chart = TblChart.objects.filter(Parent=parent_num).filter(Status=1).exclude(ChartType = 3)
+    tree = ""
+    for item in chart:
+        sub_chart = TblChart.objects.filter(
+            Parent=item.Chart).filter(Status=1).count()
+        style = "color: #337ab7;"
+        if item.ChartType == 2:
+            style = "color: #ffc107"
+        if item.ChartType == 3:
+            style = "color: #3c763d;"
+
+        if sub_chart == 0:
+            tree += '<li><a href="#" style="' + style + '" onclick="setChartId2(' + str(
+                item.Chart) + ',\'' + item.ChartText + '\',\'' + str(item.ChartType) + '\');">' + \
+                item.ChartText + '</a></li>'
+        else:
+            tree += '<li><a href="#" style="' + style + '" onclick="setChartId2(' + str(
+                item.Chart) + ',\'' + item.ChartText + '\',\'' + str(
+                item.ChartType) + '\');">' + item.ChartText + '</a>'
+            tree += '<ul>' + \
+                    create_chart_tree_without_knowledge_process_for_intrests(item.Chart) + '</ul></li>'
+    return tree
+
+
 def _delete_file(path):
     """ Deletes file from filesystem. """
     if os.path.isfile(path):
@@ -981,6 +1010,8 @@ def Profile(request):
 
     html_chart = create_chart_tree_without_knowledge_process(None)
 
+    html_chart_instrests = create_chart_tree_without_knowledge_process_for_intrests(None)
+
     degree_objects = pro_degree.objects.filter(pro_degree_key=request.user)
     edu_record_objects = edu_records.objects.filter(
         edu_records_key=request.user)
@@ -998,6 +1029,7 @@ def Profile(request):
         'members_form': members_form,
         'Title': 'پروفایل کاربری',
         'html_chart': html_chart,
+        'html_chart_intrests':html_chart_instrests,
         'degree_objects': degree_objects,
         'edu_record_objects': edu_record_objects,
         'job_record_objects': job_record_objects,

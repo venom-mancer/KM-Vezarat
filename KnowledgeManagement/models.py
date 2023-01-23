@@ -1523,7 +1523,7 @@ class TblSpecialKnowledge(models.Model):
 class TblUserIntrests(models.Model):
 
     User = ForeignKey(Members ,on_delete=models.CASCADE, null=True, blank=True )
-    intrest_tag = CharField(verbose_name='علاقه مندی ',max_length=300,unique=True)
+    intrest_tag = CharField(verbose_name='علاقه مندی ',max_length=300, null=True, blank=True )
 
     def __str__(self):
         return str(self.intrest_tag)
