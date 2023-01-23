@@ -1898,7 +1898,11 @@ def KnowledgeView(request, id):
             notif__KnowledgeCode=id).filter(notif_type=12).delete()
 
     knowledge = TblKnowledge.objects.get(KnowledgeCode=id)
-    special_knowledge = TblSpecialKnowledge.objects.get(knowledge=id)
+    
+    if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
+        special_knowledge = TblSpecialKnowledge.objects.get(knowledge=id)
+    else:
+        special_knowledge = None
 
     knowledge_type = TblKnowledge.objects.get(KnowledgeCode=id).Type
     tbl_view = view.objects.all()
