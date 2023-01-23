@@ -92,10 +92,9 @@
                    console.log(1)
                     break;
                 case '2':
-                    console.log(2)
+                    addTeam(id,name)
                     break;
                 case '3':
-                    addTeam(id,name)
                     break;
             }
 
@@ -1193,7 +1192,8 @@ $('#id_last_name').keypress(function (e) {
                 </div>
 
                 <script>
-                    let tableIndex = 0;
+                    let tableIndex = $('#tblTeam tr').length;
+                    console.log("len tbl chart",tableIndex);
                     function addTeam( value,innerText ) {
 
                         let val = value;

@@ -979,7 +979,7 @@ def Profile(request):
     members_form = UpdateProfileForm(
         request.POST or None, request.FILES or None, instance=obj_profile)
 
-    html_chart = create_chart_tree(None)
+    html_chart = create_chart_tree_without_knowledge_process(None)
 
     degree_objects = pro_degree.objects.filter(pro_degree_key=request.user)
     edu_record_objects = edu_records.objects.filter(
@@ -1037,9 +1037,8 @@ def Profile(request):
         chart_members_list = set(request.POST.getlist('chartMember'))
 
         if len(chart_members_list) != 0:
-            this_user_objects = MemberChart.objects.filter(member=request.user)
-            for object in this_user_objects:
-                object.delete()
+            MemberChart.objects.filter(member=request.user).delete()
+                
             for chart_member_list in chart_members_list:
                 obj_member_chart = MemberChart()
                 obj_member_chart.member = Members.objects.get(
@@ -1047,6 +1046,9 @@ def Profile(request):
                 obj_member_chart.chart = TblChart.objects.get(
                     Chart=chart_member_list)
                 obj_member_chart.save()
+
+        elif len(chart_members_list) == 0:
+            MemberChart.objects.filter(member=request.user).delete()
 
         if len(degree_files) != 0 and len(degree_title) != 0 and len(degree_files) == len(degree_title):
             for itemFile, itemTitle in zip(degree_files, degree_title):
