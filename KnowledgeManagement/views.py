@@ -1896,6 +1896,8 @@ def KnowledgeView(request, id):
             notif__KnowledgeCode=id).filter(notif_type=12).delete()
 
     knowledge = TblKnowledge.objects.get(KnowledgeCode=id)
+    special_knowledge = TblSpecialKnowledge.objects.get(knowledge=id)
+
     knowledge_type = TblKnowledge.objects.get(KnowledgeCode=id).Type
     tbl_view = view.objects.all()
     if not tbl_view.filter(user=request.user, post=id).exists():
@@ -1949,6 +1951,7 @@ def KnowledgeView(request, id):
         'voice': voice,
         'knowledge_owner': knowledge_owner,
         'obj_files': obj_files,
+        'special_knowledge' : special_knowledge,
         'len_files': len_files
     })
     return render(request, "KnowledgeView.html", context)

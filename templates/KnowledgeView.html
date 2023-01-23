@@ -164,8 +164,124 @@
                         </span>
                         
                     </div>
+                    
+                    {% if Knowledge.KnowledgeIsSpecial %}
+                                                   
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  هزینه ی دانش:</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.knowledgecost|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد هزینه ی دانش   :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.knowledgecost_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  سود فعلی دانش   :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.currentprofit|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد  سود فعلی دانش  :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.currentprofit_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  سود قبلی  :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.previuos_profit|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد سود قبلی  :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.previuos_profit_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  درصد تسریع کار    :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.Job_acceleration_percentage|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد درصد تسریع کار    :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.Job_acceleration_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  کاهش هزینه  :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.cost_reduction_percentage|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد کاهش هزینه    :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.cost_reduction_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  کاهش صرفه جویی    :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.economy_reduction_percentage|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد  کاهش صرفه جویی   :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.economy_reduction_percent }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i>  افزایش بهره وری :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.productivity_increasing_percentage|safe }}
+                        </span>
+                        
+                    </div>
+
+                    <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right ">
+                        <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right size_Style"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> درصد افزایش بهره وری    :</label>
+                        <span class="col-md-12 col-sm-12 col-xs-12 form-group pull-right colorfull">
+                            {{ special_knowledge.productivity_increasing_percent }}
+                        </span>
+                        
+                    </div>
 
                     <hr>
+
+                    {% endif %}
 
                     <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
                         <label style="color : blue;" class="control-label col-md-5 col-sm-3 col-xs-12 pull-right"><i class="fa fa-circle" style="color : blue;" aria-hidden="true"></i> دلیل ویژه بودن : </label>
