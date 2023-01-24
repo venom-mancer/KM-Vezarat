@@ -30,7 +30,7 @@ import os
 from django.contrib import messages
 import datetime
 from .search_functions import knowledge_advance_search
-from KnowledgeManagement.models import Members, SendSurvey2Member, TblAnswerKnowledgeRequest, TblAnswerOptionSurvey, TblAnswerQuestionRequest, TblChartAdvanceInfo, TblChartDocument, TblExpertReview, TblFollowed, TblFollowerFollowedIndicator, TblJalase, TblKnowledgeRequestNotification, TblKnowledgeStatusNotification, TblKnowledgeValueIT, TblKpiExpertReview, TblMessageUser, TblMessageUserNotification, TblQuestionRequestNotification, TblScoreFormula, TblSuervey, TblSuerveyOptions, TblTeamDocumentation, TblUserRewards, TblVoteQuestionAnswer, books, passed_trials, Documentation, TblChart, TblKeywords, TblKnowledgeCategory, TblKnowledgeConditions, \
+from KnowledgeManagement.models import Members, SendSurvey2Member, TblAnswerKnowledgeRequest, TblAnswerOptionSurvey, TblAnswerQuestionRequest, TblChartAdvanceInfo, TblChartDocument, TblExpertReview, TblFollowed, TblFollowerFollowedIndicator, TblJalase, TblKnowledgeRequestNotification, TblKnowledgeStatusNotification, TblKnowledgeValueIT, TblKpiExpertReview, TblMessageUser, TblMessageUserNotification, TblQuestionRequestNotification, TblScoreFormula, TblSuervey, TblSuerveyOptions, TblTeamDocumentation, TblUserIntrests, TblUserRewards, TblVoteQuestionAnswer, books, passed_trials, Documentation, TblChart, TblKeywords, TblKnowledgeCategory, TblKnowledgeConditions, \
     TblKnowledgeDocuments, \
     TblKnowledgeHow,TblSpecialKnowledge, \
     TblKnowledgeOpportunities, TblVoteQuestion, TblUsedQuestionKnowledge, TblUsedQuestionRequest, TblKnowledgeProblemPreventation, TblChartAdvanceInfo, TblQuestionRequest, Informs_meeting, indicator_assessment_model, TblKnowledgeResource, TblKnowledgeResults, \
@@ -1024,6 +1024,8 @@ def Profile(request):
         passed_trials_key=request.user)
     member_charts = MemberChart.objects.filter(member=request.user)
 
+    user_intrests_tags = TblUserIntrests.objects.filter(User=request.user)
+
     conetxt = dict(set_contex(request.user))
     conetxt.update({
         'members_form': members_form,
@@ -1039,6 +1041,7 @@ def Profile(request):
         'inventions_objects': inventions_objects,
         'passed_trials_objects': passed_trials_objects,
         'member_charts': member_charts,
+        'tags':user_intrests_tags,
     })
 
     if request.method == "POST":
@@ -1067,6 +1070,7 @@ def Profile(request):
         passed_trials_files = request.FILES.getlist('passed_trials_files')
 
         chart_members_list = set(request.POST.getlist('chartMember'))
+        user_intrests_tags = set(request.POST.getlist('intrestsTags'))
 
         if len(chart_members_list) != 0:
             MemberChart.objects.filter(member=request.user).delete()
@@ -1081,6 +1085,15 @@ def Profile(request):
 
         elif len(chart_members_list) == 0:
             MemberChart.objects.filter(member=request.user).delete()
+
+
+        if len(user_intrests_tags) != 0:
+            TblUserIntrests.objects.filter(User=request.user).delete()
+            for tag in user_intrests_tags:
+                TblUserIntrests.objects.create(User=request.user,intrest_tag=tag)
+
+        elif len(user_intrests_tags) == 0:
+            TblUserIntrests.objects.filter(User=request.user).delete()
 
         if len(degree_files) != 0 and len(degree_title) != 0 and len(degree_files) == len(degree_title):
             for itemFile, itemTitle in zip(degree_files, degree_title):
