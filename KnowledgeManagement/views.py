@@ -84,6 +84,10 @@ def is_Security(user):
     return user.groups.filter(name='Security').exists()
 
 
+def is_only_knowledgeworker(user):
+    return user.groups.filter(name="KnowlegeWorker").exists() and user.groups.count() == 1
+
+
 def set_contex(user):
     if user.first_name == "" or user.last_name == "":
         user_name = user.username
@@ -335,8 +339,19 @@ def home(request):
         knowledge_request__in=my_questions)
     up_votes = len(total_user_likes.filter(vote_status=1))
 
+
     knowledges = TblKnowledge.objects.filter(Status__gte=0).filter(
         Q(register_status=7) | Q(register_status=9))
+
+
+    member_chart = MemberChart.objects.values_list(
+        'chart', flat=True).filter(member=request.user)
+        
+    # if the member is only a kowledgeworker it just sees the knowledges from the same knowledge process where he or she is intrested in
+    if is_only_knowledgeworker(request.user):
+        knowledges = TblKnowledge.objects.filter(Status__gte=0).filter(
+        Q(register_status=7) | Q(register_status=9)).filter(KnowledgeProcess__Parent__in=member_chart)
+
     knowledges_len = len(knowledges)
     if knowledges_len >= 5:
         knowledges = knowledges[knowledges_len-5:]
