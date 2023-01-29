@@ -385,6 +385,7 @@ def home(request):
         count_children = knowledge_process_counter(children)
         data.append(count_children)
         labels.append(i.ChartText)
+        
 # pie chart
 
 

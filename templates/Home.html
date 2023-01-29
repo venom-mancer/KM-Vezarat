@@ -187,7 +187,7 @@
         </a>
         </div>
         
-        
+        {% if not request.user|is_only_knowledgeworker %}
 
         <div class="col-md-12 col-sm-12 col-xs-12 ">
             <div class="x_panel">
@@ -227,6 +227,8 @@
             </div>
         </div>
             <script src="{% static 'assets/Scripts/apexcharts.min.js'%}"></script>
+            
+            
                 <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title bg-info">
@@ -280,6 +282,7 @@
 
 
         </div>
+        {% endif %}
         
         
         <div class="x_content">
