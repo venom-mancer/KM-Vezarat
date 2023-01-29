@@ -386,6 +386,11 @@ def home(request):
     # topics
     get_topic1 = topic1.objects.filter(status=1)
 
+    #calculator skill percentage
+    max_score = Members.objects.aggregate(Max('score'))
+
+    score_in_percentage = int(score * 100 / max_score['score__max'])
+
     conetxt = dict(set_contex(request.user))
     conetxt.update({
         'data': data,
@@ -410,6 +415,7 @@ def home(request):
         'followers': followers,
         'followings': followings,
         'score': score,
+        'score_in_percentage' : score_in_percentage,
         'Title': 'داشبورد', })
     return render(
         request,
