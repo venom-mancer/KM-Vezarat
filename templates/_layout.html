@@ -296,9 +296,8 @@ hr{
                         
                         {% if score %}
                         <h2> <img src="/static/assets/images/star-svgrepo-com.svg" style="width:15px;height:15px;" alt=""> امتیاز شما : {{ score }} </h2>
-                        {% else %}
-                        <h2> <img src="/static/assets/images/star-svgrepo-com.svg" style="width:15px;height:15px;" alt=""> امتیاز شما : 0 </h2>
                         {% endif %}
+                        {% if score_in_percentage %}
                         <div dir="ltr" class="skill-container">
                             <div class="col">
                                 <ul class="skill">
@@ -308,6 +307,7 @@ hr{
                                 </ul>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
                 <br/>
