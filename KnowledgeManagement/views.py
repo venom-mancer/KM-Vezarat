@@ -1269,17 +1269,17 @@ def It_send_back_to_evaluator(request, id):
             obj.nazar = nazar
             obj.Creater_UserID = request.user
             obj.knowledge = TblKnowledge.objects.get(KnowledgeCode=id)
-            if obj.mozo3_id == None and mozo2 != None:
-                obj.mozo2_id = topic2.objects.get(id=mozo2)
-                obj.mozo1_id = topic1.objects.get(id=mozo1)
-                obj.mozo3_id = topic3.objects.get(id=mozo3)
-                obj.save()
-            elif obj.mozo3_id == None and mozo2 == None:
-                obj.mozo1_id = topic1.objects.get(id=mozo1)
-                obj.save()
-            else:
-                obj.mozo3_id = topic3.objects.get(id=mozo3)
-                obj.save()
+            # if obj.mozo3_id == None and mozo2 != None:
+            #     obj.mozo2_id = topic2.objects.get(id=mozo2)
+            #     obj.mozo1_id = topic1.objects.get(id=mozo1)
+            #     obj.mozo3_id = topic3.objects.get(id=mozo3)
+            #     obj.save()
+            # elif obj.mozo3_id == None and mozo2 == None:
+            #     obj.mozo1_id = topic1.objects.get(id=mozo1)
+            #     obj.save()
+            # else:
+            #     obj.mozo3_id = topic3.objects.get(id=mozo3)
+            obj.save()
 
             if submited_Knowledge.filter(KnowledgeCode=id):
                 submited_Knowledge1 = submited_Knowledge.get(KnowledgeCode=id)
