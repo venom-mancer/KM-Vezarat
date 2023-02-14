@@ -23,7 +23,6 @@
     <link href="{% static 'assets/input-tags/css/tagsinput.css' %}" rel="stylesheet" />
     <!-- skill bar -->
     <link href="{% static 'css/skillbar.css' %}" rel="stylesheet"/>
-    <link href="{% static 'css/skillpoint_pfp.css' %}" rel="stylesheet"/>
     <style>
         .bg-secondary {
             background-color: #6c757d !important;
@@ -274,21 +273,15 @@ hr{
             <div class="left_col scroll-view ">
                 <div class="clearfix"></div>
                 <div class="profile">
-                    <div class="wrapper-line" style"--clr#04fc43;--num:80">
-                    <svg>
-                    <circle cx='70' cy='70' r='70'></circle>
-                    <circle cx='70' cy='70' r='70'></circle>     
-                    </svg>
-                    <div class="profile_pic css-border ">
+                <div class="profile_pic css-border" >
+                        
+                        {% if request.user.profile_picture %}
+                        <img src={{request.user.profile_picture.url}} class="img-circular">
+                        {% else %}
+                        <img src="/static/assets/images/user.png" class="img-circle profile_img">
+                        {% endif %}
                             
-                            {% if request.user.profile_picture %}
-                            <img src={{request.user.profile_picture.url}} class="img-circular">
-                            {% else %}
-                            <img src="/static/assets/images/user.png" class="img-circle profile_img">
-                            {% endif %}
-                                
-                        </div>
-                    </div>
+                </div>
 
                     <div class="profile_info">
                         <span>خوش آمدید،</span>
@@ -1143,7 +1136,19 @@ colorThemes.forEach((themeOption) => {
 
 
 </script>
-
+<script>
+$(function(){
+  var $ppc = $('.progress-pie-chart'),
+    percent = parseInt($ppc.data('percent')),
+    deg = 360*percent/100;
+  console.log(deg);
+  if (percent > 50) {
+    $ppc.addClass('gt-50');
+  }
+  $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
+  
+});
+</script>
 
 </body>
 
