@@ -29,6 +29,7 @@ from django.contrib.auth.models import Group
 import os
 from django.contrib import messages
 import datetime
+from .tasks import test_func
 from .search_functions import knowledge_advance_search
 from KnowledgeManagement.models import Members, SendSurvey2Member, TblAnswerKnowledgeRequest, TblAnswerOptionSurvey, TblAnswerQuestionRequest, TblChartAdvanceInfo, TblChartDocument, TblExpertReview, TblFollowed, TblFollowerFollowedIndicator, TblJalase, TblKnowledgeRequestNotification, TblKnowledgeStatusNotification, TblKnowledgeValueIT, TblKpiExpertReview, TblMessageUser, TblMessageUserNotification, TblQuestionRequestNotification, TblScoreFormula, TblSuervey, TblSuerveyOptions, TblTeamDocumentation, TblUserIntrests, TblUserRewards, TblVoteQuestionAnswer, books, passed_trials, Documentation, TblChart, TblKeywords, TblKnowledgeCategory, TblKnowledgeConditions, \
     TblKnowledgeDocuments, \
@@ -346,7 +347,7 @@ def home(request):
 
     member_chart = MemberChart.objects.values_list(
         'chart', flat=True).filter(member=request.user)
-        
+
     # if the member is only a kowledgeworker it just sees the knowledges from the same knowledge process where he or she is intrested in
     if is_only_knowledgeworker(request.user):
         knowledges = TblKnowledge.objects.filter(Status__gte=0).filter(
@@ -385,7 +386,7 @@ def home(request):
         count_children = knowledge_process_counter(children)
         data.append(count_children)
         labels.append(i.ChartText)
-        
+
 # pie chart
 
 
@@ -468,7 +469,7 @@ def RegintserExperience(request, type):
 
     special_knowledge_form = TblSpecialKnowledgeForm(request.POST or None)
     specialknowledgeform = special_knowledge_form.is_valid()
-    
+
     conetxt.update({
         'teamCount': 1,
         'Title': '{}'.format(Title),
@@ -494,7 +495,7 @@ def RegintserExperience(request, type):
         else:
             form = TblKnowledgeForm(request.POST, request.FILES)
 
-        
+
         if form.is_valid() and specialknowledgeform :
             obj = form.save()
             specialknowledge_obj = special_knowledge_form.save()
@@ -683,7 +684,7 @@ def EditExperience(request, id):
                 else:
                     keywords = ''
 
-                obj = knowledge_form.save()           
+                obj = knowledge_form.save()
                 obj.Status_who_registered = request.user.Status
                 obj.save()
                 if int(status_determiner) == 2:
@@ -855,7 +856,7 @@ def Recycle_Knowledge(request, id):
             member.pk = None
             member.KnowledgeCode = Clone_Knowledge_Obj
             member.save()
-        
+
         #creates clone from special knowledge tbl
         if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
 
@@ -1096,7 +1097,7 @@ def Profile(request):
 
         if len(chart_members_list) != 0:
             MemberChart.objects.filter(member=request.user).delete()
-                
+
             for chart_member_list in chart_members_list:
                 obj_member_chart = MemberChart()
                 obj_member_chart.member = Members.objects.get(
@@ -1965,7 +1966,7 @@ def KnowledgeView(request, id):
             notif__KnowledgeCode=id).filter(notif_type=12).delete()
 
     knowledge = TblKnowledge.objects.get(KnowledgeCode=id)
-    
+
     if TblSpecialKnowledge.objects.filter(knowledge=id).exists():
         special_knowledge = TblSpecialKnowledge.objects.get(knowledge=id)
     else:
@@ -6990,3 +6991,10 @@ def knowledge_decition_tree(request):
     })
 
     return render(request, 'knowledge_decition_tree.html', context)
+
+
+
+# celery test
+def test(request):
+    test_func.delay()
+    return HttpResponseRedirect(reverse("home"))

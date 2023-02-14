@@ -319,5 +319,7 @@ urlpatterns = [
     path("get_notif_count_km/", views.get_notif_count_km,
          name="get_notif_count_km"),
 
+    path("test/",views.test,name='test')
+
 
 ]
