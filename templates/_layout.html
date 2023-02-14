@@ -23,6 +23,7 @@
     <link href="{% static 'assets/input-tags/css/tagsinput.css' %}" rel="stylesheet" />
     <!-- skill bar -->
     <link href="{% static 'css/skillbar.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/skillpoint_pfp.css' %}" rel="stylesheet"/>
     <style>
         .bg-secondary {
             background-color: #6c757d !important;
@@ -259,7 +260,6 @@ hr{
 .wordpress{
     width:{{score_in_percentage}}%;
 }
-        
     </style>
 
 </head>
@@ -274,15 +274,22 @@ hr{
             <div class="left_col scroll-view ">
                 <div class="clearfix"></div>
                 <div class="profile">
-                    <div class="profile_pic">
-                        
-                        {% if request.user.profile_picture %}
-                        <img src={{request.user.profile_picture.url}} class="img-circular">
-                        {% else %}
-                        <img src="/static/assets/images/user.png" class="img-circle profile_img">
-                        {% endif %}
+                    <div class="wrapper-line" style"--clr#04fc43;--num:80">
+                    <svg>
+                    <circle cx='70' cy='70' r='70'></circle>
+                    <circle cx='70' cy='70' r='70'></circle>     
+                    </svg>
+                    <div class="profile_pic css-border ">
                             
+                            {% if request.user.profile_picture %}
+                            <img src={{request.user.profile_picture.url}} class="img-circular">
+                            {% else %}
+                            <img src="/static/assets/images/user.png" class="img-circle profile_img">
+                            {% endif %}
+                                
+                        </div>
                     </div>
+
                     <div class="profile_info">
                         <span>خوش آمدید،</span>
                         <h2>                           
@@ -296,17 +303,6 @@ hr{
                         
                         {% if score %}
                         <h2> <img src="/static/assets/images/star-svgrepo-com.svg" style="width:15px;height:15px;" alt=""> امتیاز شما : {{ score }} </h2>
-                        {% endif %}
-                        {% if score_in_percentage %}
-                        <div dir="ltr" class="skill-container">
-                            <div class="col">
-                                <ul class="skill">
-
-                                    <li><span style="left: 1%;" class="greenline wordpress"></span><em>امتیاز من</em></li>
-                                    <li><span style="left: 1%;" class="redline dreamweaver"></span><em>بالاترین امتیاز</em></li>
-                                </ul>
-                            </div>
-                        </div>
                         {% endif %}
                     </div>
                 </div>
@@ -706,12 +702,6 @@ hr{
                                   </fieldset>
                               </form>
                         </div>
-                        
-                        <!-- <div id="main">
-                          <h2>Sidenav Push Example</h2>
-                          <p>Click on the element below to open the side navigation menu, and push this content to the right.</p>
-                          <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-                        </div> -->
                         
                         <script>
                         function openNav() {
@@ -1150,12 +1140,6 @@ colorThemes.forEach((themeOption) => {
     document.documentElement.className = themeOption.id;
   });
 });
-
-document.onload = setTheme();
-
-
-
-
 
 
 </script>
