@@ -29,7 +29,6 @@ from django.contrib.auth.models import Group
 import os
 from django.contrib import messages
 import datetime
-from .tasks import test_func
 from .search_functions import knowledge_advance_search
 from KnowledgeManagement.models import Members, SendSurvey2Member, TblAnswerKnowledgeRequest, TblAnswerOptionSurvey, TblAnswerQuestionRequest, TblChartAdvanceInfo, TblChartDocument, TblExpertReview, TblFollowed, TblFollowerFollowedIndicator, TblJalase, TblKnowledgeRequestNotification, TblKnowledgeStatusNotification, TblKnowledgeValueIT, TblKpiExpertReview, TblMessageUser, TblMessageUserNotification, TblQuestionRequestNotification, TblScoreFormula, TblSuervey, TblSuerveyOptions, TblTeamDocumentation, TblUserIntrests, TblUserRewards, TblVoteQuestionAnswer, books, passed_trials, Documentation, TblChart, TblKeywords, TblKnowledgeCategory, TblKnowledgeConditions, \
     TblKnowledgeDocuments, \
@@ -4228,6 +4227,7 @@ def rate_knowledge(request, id):
                     KnowledgeCode=id)
                 obj_review.expert = request.user
                 obj_review.set_number = obj_knowledge.set_number
+                obj_review.create_date = today_date
                 obj_review.save()
 
                 for indicator, score in zip(indicators, scores):
@@ -6992,9 +6992,3 @@ def knowledge_decition_tree(request):
 
     return render(request, 'knowledge_decition_tree.html', context)
 
-
-
-# celery test
-def test(request):
-    test_func.delay()
-    return HttpResponseRedirect(reverse("home"))

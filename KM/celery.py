@@ -18,8 +18,8 @@ app.config_from_object(settings, namespace='CELERY')
 # Celery Beat Settings
 app.conf.beat_schedule = {
     'check-knowledge-evey-day-at-17': {
-        'task': 'KnowledgeManagement.tasks.test_func',
-        'schedule': crontab(hour=17, minute=22),
+        'task': 'KnowledgeManagement.tasks.turn_exp_2_knowledge_expert',
+        'schedule': crontab(hour=17, minute=10),
     }
 
 }

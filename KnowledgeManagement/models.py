@@ -1089,6 +1089,8 @@ class TblExpertReview(models.Model):
     knowledge = ForeignKey(TblKnowledge,on_delete=PROTECT, null=True, blank=True)
     score = IntegerField(default=0, null=True, blank=True)
     set_number = IntegerField(default=1, null=True, blank=True)
+    create_date = IntegerField(
+        'تاریخ ثبت', default=LibAPADateTime.get_persian_date_normalized(), null=True, blank=True)
     def __str__(self):
         return str(self.id)
 
