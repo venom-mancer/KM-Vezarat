@@ -4,10 +4,6 @@ from posixpath import split
 from APAUtility.text_mining import spaces_between_words_dict
 import re
 from multiprocessing import context
-from re import S
-from itertools import chain
-from tkinter.messagebox import NO
-from turtle import down
 from django.db.models import Avg, Max
 from django.contrib.auth.models import User
 from APAUtility.LibAPADateTime import get_persian_date_normalized, get_persian_year_normalized
