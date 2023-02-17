@@ -22,7 +22,6 @@
 
     <link href="{% static 'assets/input-tags/css/tagsinput.css' %}" rel="stylesheet" />
     <!-- skill bar -->
-    <link href="{% static 'css/skillbar.css' %}" rel="stylesheet"/>
     <style>
         .bg-secondary {
             background-color: #6c757d !important;
@@ -1135,19 +1134,6 @@ colorThemes.forEach((themeOption) => {
 });
 
 
-</script>
-<script>
-$(function(){
-  var $ppc = $('.progress-pie-chart'),
-    percent = parseInt($ppc.data('percent')),
-    deg = 360*percent/100;
-  console.log(deg);
-  if (percent > 50) {
-    $ppc.addClass('gt-50');
-  }
-  $('.ppc-progress-fill').css('transform','rotate('+ deg +'deg)');
-  
-});
 </script>
 
 </body>

@@ -398,11 +398,6 @@ def home(request):
     # topics
     get_topic1 = topic1.objects.filter(status=1)
 
-    #calculator skill percentage
-    max_score = Members.objects.aggregate(Max('score'))
-
-    score_in_percentage = int(score * 100 / max_score['score__max'])
-
     conetxt = dict(set_contex(request.user))
     conetxt.update({
         'data': data,
@@ -427,7 +422,6 @@ def home(request):
         'followers': followers,
         'followings': followings,
         'score': score,
-        'score_in_percentage' : score_in_percentage,
         'Title': 'داشبورد', })
     return render(
         request,
@@ -1044,6 +1038,12 @@ def Profile(request):
 
     user_intrests_tags = TblUserIntrests.objects.filter(User=request.user)
 
+    # score calculator
+    score = score_calculator(request.user)
+    #calculator skill percentage
+    max_score = Members.objects.aggregate(Max('score'))
+    score_in_percentage = int(score * 100 / max_score['score__max'])
+
     conetxt = dict(set_contex(request.user))
     conetxt.update({
         'members_form': members_form,
@@ -1060,6 +1060,7 @@ def Profile(request):
         'passed_trials_objects': passed_trials_objects,
         'member_charts': member_charts,
         'tags':user_intrests_tags,
+        'score_in_percentage' : score_in_percentage,
     })
 
     if request.method == "POST":

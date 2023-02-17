@@ -177,7 +177,7 @@ $('#id_last_name').keypress(function (e) {
           rel="stylesheet">
     <link href="{% static 'assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css' %}"
           rel="stylesheet">
-
+    <link href="{% static 'css/skillbar.css' %}" rel="stylesheet"/>
           <style>
             .hide{
               display:none;
@@ -343,7 +343,8 @@ $('#id_last_name').keypress(function (e) {
         
             <div class="x_content">
                 <ul class="nav nav-tabs">
-                    <li class="active" ><a id="organPorposTab" data-toggle="tab" href="#organPorpos"> اطلاعات پایه</a></li>
+                    <li class="active" ><a id="scoreprogressTab" data-toggle="tab" href="#scoreprogress"> درصد امتیاز </a></li>
+                    <li><a id="organPorposTab" data-toggle="tab" href="#organPorpos"> اطلاعات پایه</a></li>
                     <li><a data-toggle="tab" id="organChartTab" href="#editorganchart">ویرایش اطلاعات حرفه ای</a></li>
                     <li><a data-toggle="tab" id="UserIntrestsTab" href="#UserIntrests"> علاقه مندی ها</a></li>
 
@@ -352,7 +353,22 @@ $('#id_last_name').keypress(function (e) {
                     {% csrf_token %}
                 <div class="tab-content" >
                     <div class="clearfix" style="padding: 15px;"></div>
-                  <div id="organPorpos" class="tab-pane fade in active">
+                    <div id="scoreprogress" class="tab-pane fade in active">
+                        <!-- RADICAL CIRCLE PROGRESS -->
+                        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                        <h3>درصد امتیاز شما نسبت به بالا ترین امتیاز </h3>
+                        <div class="progressdiv"  data-percent="{{score_in_percentage}}">
+                            <svg class="progress_bar" width="120" height="120">
+                            <circle r="52" cx="60" cy="60" fill="transparent" stroke-dasharray="326" stroke-dashoffset="0" ></circle>
+                            <circle class="bar" r="52" cx="60" cy="60" fill="transparent" stroke-dasharray="326" stroke-dashoffset="0"></circle>
+                            </svg>
+                           
+                        </div>
+                       
+                        </div>
+                        
+                    </div>
+                  <div id="organPorpos" class="tab-pane">
                     <div class="col-md-6 col-sm-12 col-xs-12 form-group pull-right">
                         <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">نام :</label>
                         {{members_form.first_name}}
@@ -1856,6 +1872,25 @@ $(document).on("click",".removeFile", function(e){
                         }
                     });
                 }
+            </script>
+            <script>
+            (function() {
+                window.onload = function() {
+                var totalProgress, progress;
+                    const circles = document.querySelectorAll('.progress_bar');
+                
+                    for(var i = 0; i < circles.length; i++) {
+                        totalProgress = circles[i].querySelector('circle').getAttribute('stroke-dasharray');
+                        progress = circles[i].parentElement.getAttribute('data-percent');
+                
+                console.log("totalProgress: ", totalProgress);
+                console.log("progress_bar: ", progress);
+
+                        circles[i].querySelector('.bar').style['stroke-dashoffset'] = totalProgress * progress / 100;
+                
+                    }
+                }
+            })();
             </script>
     </div>
 </div>
