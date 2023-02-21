@@ -1,7 +1,6 @@
 {% extends '_layout.html' %}
 {% load static %}
 {% load comon_tags %}
-
 {% block jsBlock %}
     <!-- Datatables -->
     <script src="{% static 'assets/vendors/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -24,23 +23,10 @@
             document.getElementById("{{ Knowledge.CreateDate }}{{ forloop.counter }}").innerHTML = normalizeDate("{{ Knowledge.CreateDate }}{{ forloop.counter }}");
         </script>
     {% endfor %}
-    <script>
-        $('input[type=file]').addClass('form-control');
-        $('input[type=number]').addClass('form-control');
-        $('input[type=text]').addClass('form-control');
-        $('input[type=email]').addClass('form-control');
-        $('select').addClass('form-control');
-        $(document).ready(function () { $('select').select2();});
-        function hideErroruser(){
-            $('#erroruser').addClass('hidden');
-        }
-        setTimeout(hideErroruser, 6000)
-    </script>
 {% endblock %}
 
 {% block cssBlock %}
     <!-- Datatables -->
-
     <link href="{% static 'assets/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css' %}"
@@ -59,10 +45,7 @@
         }
           </style>
 {% endblock %}
-
-
 {% block pageContent %}
-
     <div class="">
         <div class="x_panel">
             <div class="x_title bg-primary">
@@ -104,7 +87,6 @@
                                 <td id="{{ Knowledge.CreateDate }}{{ forloop.counter }}"></td>
                                 <td>
                                     <a href="/KnowledgeView/{{ Knowledge.KnowledgeCode }}" class="btn btn-success" title="کاربرگ">کاربرگ </a> 
-
                                 </td>
                                 <td>
                                     <i title="تعداد استفاده شده از این دانش" id="used_knowledge{{forloop.counter}}"  onclick="used_knowledge_func('{{Knowledge.KnowledgeCode}}',this.id)" style="font-size: 24px;padding: 1px 10px;{{ Knowledge.KnowledgeCode | used_knowledge_color:request.user }}" class="fa fa-check" aria-hidden="true">{{Knowledge.KnowledgeCode | used_knowledge_counter}}</i>
@@ -134,7 +116,6 @@
                                 
                                 if( json['color'] == 'green'){
                                     document.getElementById(element_id).style.color='green';
-
                                 }
                                 else{
                                     document.getElementById(element_id).style.color='';
@@ -148,60 +129,58 @@
                         });
                     }
                 </script>
-                  
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document" style="width: 65%;">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel"> دلیل استفاده</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- INSIDE CONTENT -->
-                            <form action="" method="post" role="form" enctype="multipart/form-data" style="margin-top: -11px;">
-                                {% csrf_token %}
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                  از این دانش استفاده کردم
-                                </label>
-                              </div>
-
-                            <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
-                            <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> سود قبل دانش :</label>
-                            <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            </div>
-
-                            <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
-                            <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> سود بعد دانش : </label>
-                            <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            </div>
-
-                            <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
-                                <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> هزینه ی دانش : </label>
-                                <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            </div>
-
-                            <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
-                                <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">  توضیحات  : </label>
-                                <textarea name="description" id="" cols="30" rows="10"></textarea>
-                            </div>
-
-                            </form>
-                            <!-- END OF CONTENT -->
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-                          <button type="button" class="btn btn-primary">ذخیره </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width: 65%;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"> دلیل استفاده</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <!-- INSIDE CONTENT -->
+                <form action="" method="post" role="form" enctype="multipart/form-data" style="margin-top: -11px;">
+                    {% csrf_token %}
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                      از این دانش استفاده کردم
+                    </label>
+                  </div>
+
+                <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
+                <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> سود قبل دانش :</label>
+                <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+
+                <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
+                <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> سود بعد دانش : </label>
+                <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+
+                <div class="col-md-4 col-sm-12 col-xs-12 form-group pull-right">
+                    <label class="control-label col-md-4 col-sm-12 col-xs-12 pull-right"> هزینه ی دانش : </label>
+                    <input type="number" class="form-control"  aria-label="Recipient's username" aria-describedby="basic-addon2">
+                </div>
+
+                <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12 pull-right">  توضیحات  : </label>
+                    <textarea name="description" id="" cols="30" rows="10"></textarea>
+                </div>
+
+                </form>
+                <!-- END OF CONTENT -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+              <button type="button" class="btn btn-primary">ذخیره </button>
+            </div>
+          </div>
+        </div>
+      </div>
 {% endblock %}
