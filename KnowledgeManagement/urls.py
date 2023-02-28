@@ -258,6 +258,8 @@ urlpatterns = [
     path("special_knowledgeWorkers/", views.special_knowledgeWorkers,
          name="special_knowledgeWorkers"),
     path("systemExperts/", views.system_experts, name="systemExperts"),
+    path("TopExperts/", views.top_experts, name="TopExperts"),
+
     path("system_expert_roles/<int:id>",
          views.system_expert_roles, name="system_expert_roles"),
     path("process_experts/", views.process_experts, name="process_experts"),

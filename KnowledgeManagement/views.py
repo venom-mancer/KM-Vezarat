@@ -4462,6 +4462,24 @@ def system_experts(request):
 
 
 @login_required
+def top_experts(request):
+
+    expert_users = Members.objects.filter(
+        groups__name='Expert').order_by('date_joined')
+    
+    # creates a new column called review_count then sorts the experts by the count of their reviews
+    expert_users = expert_users.annotate(review_count = Count('tblexpertreview')).order_by('-review_count')
+
+    context = {
+
+        'Title': '  خبره های سیستم',
+        'expertUsers': expert_users,
+    }
+
+    return render(request, 'systemExperts.html', context)
+
+
+@login_required
 def system_expert_roles(request, id):
 
     expert_user = Members.objects.get(member=id)
