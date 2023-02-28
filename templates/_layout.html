@@ -352,7 +352,8 @@ hr{
                             {% if request.user|has_group:"Expert" %}
                                 <li><a><i class="fa fa-book"></i> خبرگان <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
-                                        <li><a href="/unconfirmed_knowledge">دانشنامه های تایید نشده</a></li>
+                                        <li><a href="/unconfirmed_knowledge">ارزیابی نشده</a></li>
+                                        <li><a href="/confirmed_knowledge">ارزیابی شده</a></li>
                                     </ul>
                                 </li>
                                 <li><a><i class="fa fa-bar-chart"></i> گزارش <span

@@ -307,6 +307,9 @@ urlpatterns = [
     path("rate_knowledge/<int:id>", views.rate_knowledge, name="ChartManagment"),
     path("unconfirmed_knowledge/", views.unconfirmed_knowledge,
          name="unconfirmed_knowledge"),
+
+    path("confirmed_knowledge/", views.confirmed_knowledge,
+         name="confirmed_knowledge"),
     path("ChartManagment", views.ChartManagment, name="ChartManagment"),
     path("knowledge_rate_result/<int:id>",
          views.knowledge_rate_result, name="knowledge_rate_result"),

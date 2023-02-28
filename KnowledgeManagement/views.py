@@ -4197,6 +4197,24 @@ def unconfirmed_knowledge(request):
     return render(request, 'unconfirmed_knowledge.html', context)
 
 
+
+@login_required
+def confirmed_knowledge(request):
+    if not is_IT(request.user) and not is_expert(request.user):
+        return HttpResponseRedirect('/login')
+    # this gives the exact id of the item you want(no need to use FOR)
+    get_memberchart = ExpertChart.objects.values_list(
+        'chart', flat=True).filter(member=request.user)
+    # this shows only the knowledges that have register_status = 5
+    # and their chart have the same chart in expertchart
+    knowledges = TblKnowledge.objects.filter(Q(register_status=7) | Q(register_status=9), KnowledgeProcess__in=get_memberchart).exclude(CreatorUserID=request.user)
+
+    context = {
+        'Knowledges': knowledges,
+    }
+    return render(request, 'Knowledge_Report_List.html', context)
+
+
 @login_required
 def rate_knowledge(request, id):
 
