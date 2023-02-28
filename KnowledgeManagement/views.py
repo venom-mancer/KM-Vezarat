@@ -394,7 +394,7 @@ def home(request):
 # UN-SUBMITTED_line graph
 
     # score calculator
-    score = score_calculator(request.user)
+    score = request.user.score
     # topics
     get_topic1 = topic1.objects.filter(status=1)
 
@@ -1039,7 +1039,7 @@ def Profile(request):
     user_intrests_tags = TblUserIntrests.objects.filter(User=request.user)
 
     # score calculator
-    score = score_calculator(request.user)
+    score = request.user.score
     #calculator skill percentage
     max_score = Members.objects.aggregate(Max('score'))
     score_in_percentage = int(score * 100 / max_score['score__max'])
