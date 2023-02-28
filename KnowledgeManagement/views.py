@@ -382,8 +382,10 @@ def home(request):
         data.append(count_children)
         labels.append(i.ChartText)
 
-# pie chart
+#org_manager home icons
 
+    len_knowledge_reports = len(TblKnowledge.objects.filter(Status__gte=0).filter(
+        Q(register_status=7) | Q(register_status=9)))
 
 # submitted_line graph
     data_month = linegraph_month_counter(1)
@@ -422,6 +424,7 @@ def home(request):
         'followers': followers,
         'followings': followings,
         'score': score,
+        'len_knowledge_reports' : len_knowledge_reports ,
         'Title': 'داشبورد', })
     return render(
         request,

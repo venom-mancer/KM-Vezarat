@@ -60,7 +60,67 @@
 
 {% block pageContent %}
     <div class="row">
-        
+        {% if request.user|has_group:"executive_Secretary" %}
+        <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
+            <a href="/KnowledgeReport">
+            <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
+                <div class="panel panel-primary text-center no-boder card_dash">
+                    <div class="panel-left pull-left green">
+                        <img src="/static/assets/images/chart3-svgrepo-com.svg" style="width:60px;height:60px;" alt="">
+                    </div>
+                    <div class="panel-right">
+                        <h3>{{len_knowledge_reports}}</h3>
+                        <strong>  دانش های ارزشمند</strong>
+                    </div>
+                </div>
+            </div>
+            </a>
+            <a href="/used_knowlege">
+            <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
+                <div class="panel panel-primary text-center no-boder card_dash">
+                    <div class="panel-left pull-left blue">
+                        <img src="/static/assets/images/recycle-svgrepo-com.svg" style="width:60px;height:60px;" alt="">
+                    </div>
+
+                    <div class="panel-right">
+                        <h3>{{used}} </h3>
+                        <strong> دانش های مورد استفاده</strong>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+            <a href="/superior_knowledge_workers">
+            <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
+                <div  class="panel panel-primary text-center no-boder card_dash">
+                    <div class="panel-left pull-left red">
+                        <img src="/static/assets/images/group-of-people-svgrepo-com.svg" style="width:60px;height:50px;" alt="">
+
+                    </div>
+                    <div class="panel-right">
+                        <h3>12 </h3>
+                        <strong> دانشکار های برتر  </strong>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+            <a href="/followers">
+            <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
+                <div  class="panel panel-primary text-center no-boder card_dash">
+                    <div class="panel-left pull-left brown">
+                        <img src="/static/assets/images/people-user-svgrepo-com.svg" style="width:50px;height:50px;" alt="">
+
+                    </div>
+                    <div class="panel-right">
+                        <h3>{{ followers }} </h3>
+                        <strong>خبره های برتر </strong>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+        {%else %}
         <div class="col-md-12 col-sm-12 col-xs-12 form-group pull-right">
             <a href="/used_knowlege">
             <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
@@ -186,6 +246,7 @@
             </div>
         </a>
         </div>
+        {% endif %}
         
         {% if not request.user|is_only_knowledgeworker %}
 
