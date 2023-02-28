@@ -369,7 +369,6 @@ hr{
                                         <li><a href="/valuable_knowledges"> گزارش دانش ارزشمند </a></li>
                                         <li><a href="/superior_knowledge_workers">دانش کاران نمونه</a></li>
                                         <li><a href="/special_knowledgeWorkers">دانش کاران ویژه</a></li>
-                                        <li><a href="/report_reward_users">پاداش</a></li>
                                         <li><a href="/systemExperts">خبره های سیستم</a></li>
                                         <li><a href="/process_experts">خبره های حوزه دانشی</a></li>
                                         <li><a href="/conversation_hall">فعالیت در تالار گفتمان</a></li>
@@ -388,7 +387,6 @@ hr{
                                         <li><a href="/inform">  اطلاع رسانی</a></li>
                                         <li><a href="/inform_list">لیست اطلاع رسانی ها</a></li>
                                         <li><a href="/give_user_reward"> محاسبه پاداش   </a></li>
-                                        <li><a href="/score_formula">تعریف فرمول امتیاز دهی</a></li>
                                         <li><a href="/calculate_valuable_knowledge"> محاسبه ارزش دانش  </a></li>
                                         
 
@@ -422,14 +420,6 @@ hr{
                                             </ul>
                                         </li>
 
-                                        <li><a href="#"> صورت جلسات شورای راهبردی (اتاق فکر) <span class="fa fa-chevron-down"></span></a>
-                                            <ul class="nav child_menu">
-                                                <li><a href="/thinking_room"> ثبت صورت جلسات</a></li>
-                                                <li><a href="/inform_meeting"> اطلاع رسانی جلسات</a></li>
-                                                <li><a href="/thinking_room_list"> لیست جلسات</a></li>
-                                            </ul>
-                                        </li>
-
                                         <li><a href="/define_3topics">تعریف موضوع های دبیر خانه</a></li>
                                         <li><a href="/enterAsothers">ورود به عنوان دیگر اعضا</a></li>
                                     </ul>
@@ -454,6 +444,26 @@ hr{
                                     class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         <li><a href="/security"> برسی وضعیت</a></li>                                
+                                    </ul>
+                                </li>
+                                {% endif %}
+
+                                {% if request.user|has_group:"Knowledge_Facilitator" %}
+                                <li><a><i class="fa fa-clipboard" aria-hidden="true"></i>تسهیلگر دانش<span
+                                    class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/report_reward_users">پاداش</a></li>
+                                        <li><a href="/score_formula">تعریف فرمول امتیاز دهی</a></li>                   
+                                    </ul>
+                                </li>
+                                {% endif %}
+
+                                {% if request.user|has_group:"executive_Secretary" %}
+                                <li><a><i class="fa fa-volume-control-phone" aria-hidden="true"></i>صورت جلسات <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        <li><a href="/thinking_room"> ثبت صورت جلسات</a></li>
+                                        <li><a href="/inform_meeting"> اطلاع رسانی جلسات</a></li>
+                                        <li><a href="/thinking_room_list"> لیست جلسات</a></li>
                                     </ul>
                                 </li>
                                 {% endif %}
