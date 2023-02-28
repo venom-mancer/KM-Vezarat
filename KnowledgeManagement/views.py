@@ -307,6 +307,8 @@ def home(request):
         TblFollowerFollowedIndicator.objects.filter(follower=request.user))
     followers = len(TblFollowerFollowedIndicator.objects.filter(
         followed=TblFollowed.objects.get(who_is_followed=request.user)))
+    
+    top_experts_count = Members.objects.filter(groups__name='Expert').count()
 
     # UNchecking knowledge
     unchecked_knowledges = len(TblKnowledge.objects.exclude(Q(register_status=7) | Q(
@@ -425,6 +427,7 @@ def home(request):
         'followings': followings,
         'score': score,
         'len_knowledge_reports' : len_knowledge_reports ,
+        'top_experts_count':top_experts_count,
         'Title': 'داشبورد', })
     return render(
         request,
