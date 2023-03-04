@@ -32,6 +32,11 @@
         .inline_order {
             width: 25%;
         }
+        {% if request.user|has_group:"executive_Secretary" %}
+        .inline_order {
+            width: 19.5%;
+        
+        {% endif %}
         .dataTables_filter{
             display: none;
         }
@@ -70,7 +75,7 @@
                     </div>
                     <div class="panel-right">
                         <h3>{{len_knowledge_reports}}</h3>
-                        <strong>  دانش های ارزشمند</strong>
+                        <strong>  دانش های برتر</strong>
                     </div>
                 </div>
             </div>
@@ -115,6 +120,21 @@
                     <div class="panel-right">
                         <h3>{{ top_experts_count }} </h3>
                         <strong>خبره های برتر </strong>
+
+                    </div>
+                </div>
+            </div>
+        </a>
+        <a href="/valuable_knowledges">
+            <div class="col-md-1 col-sm-12 col-xs-12 inline_order">
+                <div  class="panel panel-primary text-center no-boder card_dash">
+                    <div class="panel-left pull-left brown">
+                        <img src="/static/assets/images/gem-stone-svgrepo-com.svg" style="width:50px;height:50px;" alt="">
+
+                    </div>
+                    <div class="panel-right">
+                        <h3>{{ len_valueable_knowledges }} </h3>
+                        <strong>دانش های ارزشمند   </strong>
 
                     </div>
                 </div>

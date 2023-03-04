@@ -386,6 +386,11 @@ def home(request):
 
 #org_manager home icons
 
+    len_valueable_knowledges = len(TblKnowledge.objects.filter(Status__gte=0).filter(Q(register_status=7) | Q(register_status=9)).raw('''
+    select * from KnowledgeManagement_tblknowledge
+    where ( %s - CreateDate) >=10000
+    ''', [today_date]))
+
     len_knowledge_reports = len(TblKnowledge.objects.filter(Status__gte=0).filter(
         Q(register_status=7) | Q(register_status=9)))
 
@@ -424,6 +429,7 @@ def home(request):
         'Knowledges': knowledges,
         'view_count': view_count,
         'followers': followers,
+        'len_valueable_knowledges' : len_valueable_knowledges,
         'followings': followings,
         'score': score,
         'len_knowledge_reports' : len_knowledge_reports ,
